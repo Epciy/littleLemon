@@ -10,6 +10,10 @@ from rest_framework.response import Response
 from rest_framework import viewsets,  generics
 # Create your views here.
 
+# static HTML content
+def home(request):
+    return render(request,"home.html")
+
 @api_view()
 @permission_classes([IsAuthenticated])
 # @authentication_classes([TokenAuthentication])
@@ -36,7 +40,7 @@ class SingleMenuItemView(generics.RetrieveUpdateAPIView, generics.DestroyAPIView
     queryset = MenuItem.objects.all()
     serializer_class = MenuItemSerializer
 
-class BookingView(generics.ListCreateAPIView):
+class BookingView(viewsets.ModelViewSet):
     permission_classes = [IsAuthenticated]
     queryset = TableBooking.objects.all()
     serializer_class = BookingSerializer
